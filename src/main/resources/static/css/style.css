@@ -1,0 +1,190 @@
+/* 全局样式 */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 60px;
+    color: #333;
+}
+
+.main-container {
+    min-height: 80vh;
+}
+
+/* 导航栏样式 */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    font-weight: 500;
+}
+
+/* 用户下拉菜单 */
+.user-actions .dropdown-menu {
+    width: 200px;
+}
+
+.user-actions .dropdown-item {
+    padding: 0.5rem 1rem;
+}
+
+.user-actions .dropdown-item i {
+    margin-right: 8px;
+    width: 20px;
+    text-align: center;
+}
+
+/* 购物车按钮 */
+#cartCount {
+    position: relative;
+    top: -8px;
+    right: -5px;
+    font-size: 0.7rem;
+}
+
+/* 分类图标 */
+.category-card {
+    transition: all 0.3s ease;
+    border: 1px solid #eaeaea;
+    cursor: pointer;
+    text-decoration: none;
+    color: #333;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-color: #ccc;
+}
+
+.category-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #0d6efd;
+}
+
+/* 商品卡片 */
+.product-card {
+    position: relative;
+    transition: all 0.3s ease;
+    height: 100%;
+    cursor: pointer;
+    border: 1px solid #eaeaea;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: #ccc;
+}
+
+.product-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.product-name {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    height: 2.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.product-price {
+    margin-bottom: 0.5rem;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 0.9rem;
+    margin-right: 5px;
+}
+
+.current-price {
+    color: #e74c3c;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* 分类标题 */
+.section-title {
+    position: relative;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100px;
+    height: 3px;
+    background-color: #0d6efd;
+}
+
+/* 轮播图 */
+.carousel-item {
+    max-height: 400px;
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+/* 页脚 */
+footer a {
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* 响应式样式 */
+@media (max-width: 768px) {
+    .carousel-item {
+        max-height: 200px;
+    }
+    
+    .product-card .card-img-top {
+        height: 150px;
+    }
+    
+    .section-title {
+        font-size: 1.3rem;
+    }
+    
+    .category-icon {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    body {
+        padding-top: 56px;
+    }
+    
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    
+    .carousel-item {
+        max-height: 150px;
+    }
+    
+    .section-title {
+        font-size: 1.1rem;
+    }
+} 

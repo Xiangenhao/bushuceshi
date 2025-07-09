@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.afd.mapper.MerchantMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="BaseResultMap" type="org.example.afd.model.Merchant">
+        <id column="merchant_id" jdbcType="BIGINT" property="merchantId" />
+        <result column="user_id" jdbcType="BIGINT" property="userId" />
+        <result column="merchant_name" jdbcType="VARCHAR" property="merchantName" />
+        <result column="description" jdbcType="VARCHAR" property="description" />
+        <result column="logo" jdbcType="VARCHAR" property="logo" />
+        <result column="business_license" jdbcType="VARCHAR" property="businessLicense" />
+        <result column="contact_name" jdbcType="VARCHAR" property="contactName" />
+        <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
+        <result column="contact_email" jdbcType="VARCHAR" property="contactEmail" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+    
+    <!-- 基本列 -->
+    <sql id="Base_Column_List">
+        merchant_id, user_id, merchant_name, description, logo, business_license,
+        contact_name, contact_phone, contact_email, status, create_time, update_time
+    </sql>
+
+    <!-- 通过主键查询 -->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM shop_merchant
+        WHERE merchant_id = #{merchantId,jdbcType=BIGINT}
+    </select>
+
+    <!-- 通过用户ID查询 -->
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM shop_merchant
+        WHERE user_id = #{userId,jdbcType=BIGINT}
+    </select>
+
+    <!-- 插入商家信息 -->
+    <insert id="insert" parameterType="org.example.afd.model.Merchant" useGeneratedKeys="true" keyProperty="merchantId">
+        INSERT INTO shop_merchant (
+            user_id, merchant_name, description, logo, business_license,
+            contact_name, contact_phone, contact_email, status, create_time, update_time
+        )
+        VALUES (
+            #{userId,jdbcType=BIGINT}, #{merchantName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+            #{logo,jdbcType=VARCHAR}, #{businessLicense,jdbcType=VARCHAR}, #{contactName,jdbcType=VARCHAR},
+            #{contactPhone,jdbcType=VARCHAR}, #{contactEmail,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+            #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+    <!-- 更新商家信息 -->
+    <update id="update" parameterType="org.example.afd.model.Merchant">
+        UPDATE shop_merchant
+        <set>
+            <if test="merchantName != null">merchant_name = #{merchantName,jdbcType=VARCHAR},</if>
+            <if test="description != null">description = #{description,jdbcType=VARCHAR},</if>
+            <if test="logo != null">logo = #{logo,jdbcType=VARCHAR},</if>
+            <if test="businessLicense != null">business_license = #{businessLicense,jdbcType=VARCHAR},</if>
+            <if test="contactName != null">contact_name = #{contactName,jdbcType=VARCHAR},</if>
+            <if test="contactPhone != null">contact_phone = #{contactPhone,jdbcType=VARCHAR},</if>
+            <if test="contactEmail != null">contact_email = #{contactEmail,jdbcType=VARCHAR},</if>
+            <if test="status != null">status = #{status,jdbcType=INTEGER},</if>
+            update_time = NOW()
+        </set>
+        WHERE merchant_id = #{merchantId,jdbcType=BIGINT}
+    </update>
+
+    <!-- 查询推荐商家列表 -->
+    <select id="selectRecommended" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM shop_merchant
+        WHERE status = 1
+        ORDER BY create_time DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <!-- 查询附近的商家 -->
+    <select id="selectNearby" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM shop_merchant
+        WHERE status = 1
+        <!-- 这里需要根据经纬度计算距离，实际开发中可能需要使用数据库地理空间函数 -->
+        <!-- 这里仅为示例，实际开发中可能需要配合用户位置表一起查询 -->
+        ORDER BY create_time DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <!-- 搜索商家 -->
+    <select id="search" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM shop_merchant
+        WHERE status = 1
+        <if test="keyword != null and keyword != ''">
+            AND (
+                merchant_name LIKE CONCAT('%', #{keyword}, '%')
+                OR description LIKE CONCAT('%', #{keyword}, '%')
+            )
+        </if>
+        ORDER BY create_time DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <!-- 获取用户关注的商家列表 -->
+    <select id="selectFollowedByUser" resultMap="BaseResultMap">
+        SELECT
+        m.<include refid="Base_Column_List" />
+        FROM shop_merchant m
+        INNER JOIN user_merchant_follow f ON m.merchant_id = f.merchant_id
+        WHERE f.user_id = #{userId,jdbcType=BIGINT}
+        AND m.status = 1
+        ORDER BY f.create_time DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+</mapper> 

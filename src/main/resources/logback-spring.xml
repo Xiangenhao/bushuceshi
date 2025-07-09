@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+    <property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/spring_boot.log}"/>
+    <include resource="org/springframework/boot/logging/logback/file-appender.xml"/>
+
+    <!-- 设置阿里云OSS相关日志级别为WARN，减少不必要的日志输出 -->
+    <logger name="com.aliyun.oss" level="WARN"/>
+    <logger name="org.example.afd.utils.AliyunOSSOperator" level="WARN"/>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration> 

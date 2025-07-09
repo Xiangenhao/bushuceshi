@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.afd.mapper.OrderMapper">
+    
+    <!-- 根据ID查询订单 -->
+    <select id="selectOrderById" resultType="java.util.Map">
+        SELECT * FROM shop_order
+        WHERE order_id = #{orderId} AND user_id = #{userId} AND delete_status = 0
+    </select>
+    
+    <!-- 查询订单列表 -->
+    <select id="selectOrders" resultType="java.util.Map">
+        SELECT * FROM shop_order
+        WHERE user_id = #{userId}
+        <if test="status != null">
+            AND status = #{status}
+        </if>
+        AND delete_status = 0
+        ORDER BY create_time DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+    
+    <!-- 统计订单数量 -->
+    <select id="countOrders" resultType="int">
+        SELECT COUNT(*) FROM shop_order
+        WHERE user_id = #{userId}
+        <if test="status != null">
+            AND status = #{status}
+        </if>
+        AND delete_status = 0
+    </select>
+    
+    <!-- 查询订单项列表 -->
+    <select id="selectOrderItems" resultType="java.util.Map">
+        SELECT * FROM shop_order_item
+        WHERE order_id = #{orderId}
+    </select>
+    
+    <!-- 更新订单状态 -->
+    <update id="updateOrderStatus">
+        UPDATE shop_order
+        SET status = #{status},
+            update_time = NOW()
+        WHERE order_id = #{orderId}
+    </update>
+    
+    <!-- 更新订单支付信息 -->
+    <update id="updateOrderPayment">
+        UPDATE shop_order
+        SET pay_type = #{payType},
+            pay_time = #{payTime},
+            update_time = NOW()
+        WHERE order_id = #{orderId}
+    </update>
+    
+    <!-- 更新订单收货时间 -->
+    <update id="updateOrderReceiveTime">
+        UPDATE shop_order
+        SET receive_time = #{receiveTime},
+            update_time = NOW()
+        WHERE order_id = #{orderId}
+    </update>
+    
+    <!-- 更新订单删除状态 -->
+    <update id="updateOrderDeleteStatus">
+        UPDATE shop_order
+        SET delete_status = #{deleteStatus},
+            update_time = NOW()
+        WHERE order_id = #{orderId}
+    </update>
+    
+</mapper> 

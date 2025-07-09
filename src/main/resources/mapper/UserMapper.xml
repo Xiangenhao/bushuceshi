@@ -1,0 +1,7 @@
+<!-- 根据用户ID获取用户信息 -->
+<select id="getUserById" resultType="org.example.afd.pojo.User">
+    SELECT * FROM users
+    WHERE user_id = #{userId}
+    AND deleted = 0
+    AND status = 0
+</select> 

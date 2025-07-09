@@ -1,0 +1,23 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< org.example:afd >---------------------------
+[INFO] Building afd 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.4.0:clean (default-clean) @ afd ---
+[INFO] Deleting D:\project-wjy\afd\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ afd ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ afd ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 39 source files with javac [debug parameters release 17] to target\classes
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  7.102 s
+[INFO] Finished at: 2025-04-01T12:43:47+08:00
+[INFO] ------------------------------------------------------------------------

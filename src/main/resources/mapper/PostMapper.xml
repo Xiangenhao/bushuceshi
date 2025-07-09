@@ -1,0 +1,31 @@
+<!-- 统计订阅计划的订阅人数 -->
+<select id="countPlanSubscribers" resultType="java.lang.Integer">
+    SELECT COUNT(DISTINCT user_id)
+    FROM post_user_subscription
+    WHERE plan_id = #{planId}
+    AND status = 1 <!-- 有效订阅 -->
+    AND end_time > NOW() <!-- 未过期 -->
+</select>
+
+<!-- 检查用户是否已订阅该计划 -->
+<select id="checkUserSubscribed" resultType="java.lang.Boolean">
+    SELECT COUNT(*) > 0
+    FROM post_user_subscription
+    WHERE user_id = #{userId}
+    AND plan_id = #{planId}
+    AND status = 1 <!-- 有效订阅 -->
+    AND end_time > NOW() <!-- 未过期 -->
+</select>
+
+<!-- 获取创作者的订阅计划列表 -->
+<select id="getCreatorSubscriptionPlans" resultType="org.example.afd.dto.SubscriptionPlanDTO">
+    SELECT 
+        p.*
+    FROM 
+        post_subscription_plan p
+    WHERE 
+        p.creator_id = #{creatorId}
+        AND p.status = 1
+    ORDER BY 
+        p.create_time DESC
+</select> 
