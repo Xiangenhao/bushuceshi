@@ -63,7 +63,7 @@ alipay:
 # 文件上传配置
 file:
   upload:
-    path: /app/uploads  # 容器内的物理存储路径
+    base-path: /app/uploads  # 容器内的物理存储路径
     base-url: http://121.37.141.77:8088/uploads/ # 客户端访问URL的前缀
 
 # JWT配置
