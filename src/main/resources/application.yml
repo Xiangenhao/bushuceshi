@@ -1,20 +1,26 @@
 spring:
   application:
     name: afd
-  #mysql连接配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/afd
-    username: root
-    password: 1234
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/aff?characterEncoding=utf8&serverTimezone=Asia/Shanghai}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:wx163591}
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true # 可选：显示 SQL 语句
+      ddl-auto: none  # 防止自动修改表结构
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 100MB
+  mvc:
+    servlet:
+      path: /api  # 添加API前缀
   # 配置日期格式，添加时区信息
   jackson:
     date-format: yyyy-MM-dd'T'HH:mm:ss'Z'
@@ -57,7 +63,8 @@ alipay:
 # 文件上传配置
 file:
   upload:
-    # 基础存储路径
-    base-path: D:/upload/files
-    # 基础访问URL (设置为公网IP或域名，确保手机可以访问)
-    base-url: http://192.168.35.239:8080/files
+    path: /app/uploads  # 容器内的物理存储路径
+  access-url: http://121.37.141.77:8088/uploads/ # 客户端访问URL的前缀
+
+# JWT配置
+jwt:
