@@ -3,7 +3,7 @@ spring:
     name: afd
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/aff?characterEncoding=utf8&serverTimezone=Asia/Shanghai}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/afd?characterEncoding=utf8&serverTimezone=Asia/Shanghai}
     username: ${SPRING_DATASOURCE_USERNAME:root}
     password: ${SPRING_DATASOURCE_PASSWORD:wx163591}
   jpa:
@@ -18,9 +18,9 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 100MB
-  mvc:
-    servlet:
-      path: /api  # 添加API前缀
+#  mvc:
+#    servlet:
+#      path: /api  # 添加API前缀
   # 配置日期格式，添加时区信息
   jackson:
     date-format: yyyy-MM-dd'T'HH:mm:ss'Z'

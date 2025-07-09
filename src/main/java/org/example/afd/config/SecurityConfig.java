@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
-import static org.springframework.security.config.Customizer.withDefaults;
 
 /**
  * Spring Security配置类
@@ -22,9 +21,9 @@ public class SecurityConfig {
         // 允许所有请求，因为我们使用自定义的JWT拦截器（JwtAuthInterceptor）进行认证
         http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
         
-        // 禁用默认的登录页面
+        // 禁用默认的登录页面和HTTP Basic认证
         http.formLogin(form -> form.disable());
-        http.httpBasic(withDefaults());
+        http.httpBasic(basic -> basic.disable());
         
         return http.build();
     }
